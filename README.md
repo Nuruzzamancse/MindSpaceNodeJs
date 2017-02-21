@@ -1,2 +1,2 @@
 # MindSpaceNodeJs
-These are written during practice from MindSpace.
+These codes are written during practice from MindSpace.
