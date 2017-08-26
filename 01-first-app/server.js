@@ -1,10 +1,13 @@
-var http = require('http');
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://127.0.0.1:27017/mydb";
 
-function onRequest(reque,respo) {
-    respo.writeHead(200,{'content-type':'text/plain'});
-    respo.write('Hello World');
-    respo.end();
-
-}
-
-http.createServer(onRequest).listen(38000);
+MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var myquery = { address: /^S/ };
+    var newvalues = {$set: {name: "Minnie"} };
+    db.collection("customers").updateMany(myquery, newvalues, function(err, res) {
+        if (err) throw err;
+        console.log(res.result.nModified + " document(s) updated");
+        db.close();
+    });
+});
